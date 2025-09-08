@@ -1,0 +1,25 @@
+{
+  "name": "staylocator",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/mayank-chaurasiya/Stay_Locator#readme",
+  "bugs": {
+    "url": "https://github.com/mayank-chaurasiya/Stay_Locator/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayank-chaurasiya/Stay_Locator.git"
+  },
+  "license": "ISC",
+  "author": "mayank",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0"
+  }
+}
