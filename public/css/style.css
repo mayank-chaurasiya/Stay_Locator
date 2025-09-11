@@ -1,12 +1,69 @@
 * {
+    box-sizing: border-box;
+    font-family: "Arima", system-ui;
+}
+
+/* body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
+} */
 
 .navbar {
     height: 5rem;
     background-color: #fff;
+}
+
+.menu {
+    padding: 80px 20px;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.menu li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.menu a {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: black;
+    display: block;
+    position: relative;
+    padding: 4px 0;
+}
+
+.menu a::before {
+    content: "";
+    width: 100%;
+    height: 4px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: black;
+    transition: 0.5s transform ease;
+    transform: scale3d(0, 1, 1);
+    transform-origin: 0 50%;
+}
+
+.menu a:hover::before {
+    transform: scale3d(1, 1, 1);
+}
+
+.menu a::before {
+    background: #E91E63;
+    transform-origin: 0 50%;
+}
+
+.menu a:hover::before {
+    transform-origin: 100% 50%;
 }
 
 .fa-airbnb {
@@ -52,4 +109,39 @@
 .social-info i {
     font-size: 1.5rem;
     margin-right: 1rem;
+}
+
+/* Cards */
+
+.heading-title {
+    margin-top: 1rem !important;
+}
+
+.listing-card {
+    text-decoration: none;
+}
+
+.card {
+    border: none !important;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body h5 {
+    padding: 0 !important;
+    font-weight: 700;
+    line-height: 1rem !important;
+}
+
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.3;
+    background-color: #fff;
 }
