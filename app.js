@@ -47,7 +47,9 @@ app.get("/listings/new", async (req, res) => {
 
 //---------- CREATE ROUTE --------------------------------------
 app.post("/listings", async (req, res) => {
-  let newListing = new Listing(req.body.listing);
+  let listingData = req.body.listing;
+  listingData.image = { url: listingData.image };
+  let newListing = new Listing(listingData);
   await newListing.save();
   res.redirect("/listings");
 });
@@ -62,7 +64,9 @@ app.get("/listings/:id/edit", async (req, res) => {
 //--------- UPDATE ROUTE ---------------------------------------
 app.put("/listings/:id", async (req, res) => {
   let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  let updatedListing = { ...req.body.listing };
+  updatedListing.image = { url: req.body.listing.image };
+  await Listing.findByIdAndUpdate(id, updatedListing);
   res.redirect(`/listings/${id}`);
 });
 
