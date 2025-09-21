@@ -17,25 +17,37 @@
         </li>
         <li class="list-group-item">Location : <%= listing.location %></li>
         <li class="list-group-item">Country : <%= listing.country %></li>
+        <li class="list-group-item">
+          Owned By : <i>@<%= listing.owner.username %></i>
+        </li>
       </ul>
-      <div class="card-body">
-        <a
-          href="/listings/<%= listing._id %>/edit"
-          class="card-link btn btn-dark"
-          >Edit this listing</a
+      <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+      <div>
+        <div class="card-body">
+          <a
+            href="/listings/<%= listing._id %>/edit"
+            class="card-link btn btn-dark"
+            >Edit this listing</a
+          >
+        </div>
+        <hr />
+        <form
+          method="POST"
+          action="/listings/<%= listing._id %>?_method=DELETE"
         >
+          <div class="d-grid gap-2 col-6 mx-auto mt-4 mb-3">
+            <button class="btn btn-outline-danger button-text" type="submit">
+              Delete
+            </button>
+          </div>
+        </form>
       </div>
+      <% } %>
     </div>
-    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-      <div class="d-grid gap-2 col-6 mx-auto mt-4 mb-4">
-        <button class="btn btn-outline-danger button-text" type="submit">
-          Delete
-        </button>
-      </div>
-    </form>
 
-    <hr />
     <!-- ------------ review ------------------ -->
+    <% if(currUser) { %>
+    <hr />
     <h4 class="mt-2 mb-2">Leave a Review</h4>
     <form
       action="/listings/<%= listing.id %>/reviews"
@@ -61,7 +73,7 @@
       </div>
       <button class="btn btn-outline-success mt-3 mb-3">Submit</button>
     </form>
-
+    <% } %>
     <!-- showing reviewws -->
     <hr />
     <h4>All Reviews</h4>
@@ -70,7 +82,7 @@
       <div class="col-sm-6 mb-3 mb-sm-0">
         <div class="card border">
           <div class="card-body">
-            <h5 class="card-title">user</h5>
+            <h5 class="card-title">@<%= review.author.username %></h5>
             <p class="card-text"><%= review.comment %></p>
             <p class="card-text"><%= review.rating %> star</p>
             <form

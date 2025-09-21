@@ -11,13 +11,17 @@ const listingSchema = new Schema({
     type: String,
   },
   image: {
-    url: String,
-    filename: String,
+    url: {
+      type: String,
+      default:
+        "https://images.unsplash.com/photo-1593915451045-064bf8007a0f?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      set: (value) =>
+        value === ""
+          ? "https://images.unsplash.com/photo-1593915451045-064bf8007a0f?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          : value,
+    },
 
-    // set: (value) =>
-    //   value === ""
-    //     ? "https://images.unsplash.com/photo-1593915451045-064bf8007a0f?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    //     : value,
+    filename: String,
   },
   price: {
     type: Number,
@@ -34,6 +38,10 @@ const listingSchema = new Schema({
       ref: "Review",
     },
   ],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {

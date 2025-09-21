@@ -14,7 +14,10 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div
+      class="collapse navbar-collapse button-alignment"
+      id="navbarNavAltMarkup"
+    >
       <div class="menu menu-effect">
         <ul>
           <li><a href="/listings">Home</a></li>
@@ -22,9 +25,14 @@
           <li><a href="/listings/new">Add New Listing</a></li>
           <!-- <li><a href="#">contact</a></li> -->
         </ul>
-        <!-- <a class="nav-link" href="/listings">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add new Listings</a> -->
+      </div>
+      <div class="logIn-btns">
+        <% if(!currUser) {%>
+        <a class="btn btn-outline-dark" href="/login">Log in</a>
+        <a class="btn btn-outline-dark" href="/signup">Sign up</a>
+        <% } %> <% if(currUser) {%>
+        <a class="btn btn-outline-dark" href="/logout">Log Out</a>
+        <% } %>
       </div>
     </div>
   </div>
