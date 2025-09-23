@@ -14,8 +14,11 @@ module.exports.newListingForm = async (req, res) => {
 
 //---------- CREATE ROUTE --------------------------------------
 module.exports.createListing = async (req, res, next) => {
+  let url = req.file.path;
+  let filename = req.file.filename;
+  console.log(url, "..", filename);
   let listingData = req.body.listing;
-  listingData.image = { url: listingData.image };
+  listingData.image = { url, filename };
   let newListing = new Listing(listingData);
   newListing.owner = req.user._id;
   await newListing.save();
@@ -35,7 +38,15 @@ module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
   let updatedListing = { ...req.body.listing };
   updatedListing.image = { url: req.body.listing.image };
-  await Listing.findByIdAndUpdate(id, updatedListing);
+  let listing = await Listing.findByIdAndUpdate(id, updatedListing);
+
+  if (typeof req.file !== "undefined") {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = { url, filename };
+    await listing.save();
+  }
+
   req.flash("success", "Listing Updated Successfully !!");
   res.redirect(`/listings/${id}`);
 };
