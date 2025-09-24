@@ -120,9 +120,10 @@
     </form>
     <% } %>
     <!-- showing reviewws -->
+    <% if(listing.reviews.length > 0) { %>
     <hr />
-    <h4>All Reviews</h4>
     <div class="row mb-3">
+      <h4>All Reviews</h4>
       <% for (review of listing.reviews) { %>
       <div class="col-sm-6 mb-3 mb-sm-0">
         <div class="card border">
@@ -144,5 +145,19 @@
       </div>
       <% } %>
     </div>
+    <% } %>
+
+    <!-- showing map -->
+    <hr />
+    <h3 class="mt-2 mb-2">Rough location of the property :</h3>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d382775.17934312206!2d77.0426088922874!3d28.53200310075042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x52c2b7494e204dce!2sNew%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1758715983493!5m2!1sen!2sin"
+      width="500"
+      height="400"
+      style="border: 0"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
   </div>
 </div>

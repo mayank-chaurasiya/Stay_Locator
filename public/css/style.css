@@ -92,6 +92,14 @@ body {
     color: #222222 !important
 }
 
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    z-index: 1000;
+  }
+}
+
 .footer-info {
     display: flex;
     flex-wrap: wrap;

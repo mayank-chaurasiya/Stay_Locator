@@ -9,6 +9,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -26,7 +27,35 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
+//-------------- CONNECTING DATABASE (MONGOOSE) ------------------
+// const MONGO_URL = "mongodb://127.0.0.1:27017/staylocator";
+const dbUrl = process.env.ATLASDB_URL;
+
+main()
+  .then(() => {
+    console.log("connection successful With database!!");
+  })
+  .catch((err) => console.log(err));
+
+async function main() {
+  await mongoose.connect(dbUrl);
+}
+//----------------------------------------------------------------
+
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: "secrettt",
+  },
+  touchAfter: 24 * 3600,
+});
+
+store.on("error", () => {
+  console.log("ERROR IN MONGO SESSION STORE", err);
+});
+
 const sessionOptions = {
+  store: store,
   secret: "secrettt",
   resave: false,
   saveUninitialized: true,
@@ -36,11 +65,6 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
-
-//------------ HOME ROUTE ----------------------------------------
-app.get("/", (req, res) => {
-  res.send("hii I am working!!");
-});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -66,20 +90,6 @@ app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
 let PORT = 8000;
-
-//-------------- CONNECTING DATABASE (MONGOOSE) ------------------
-const MONGO_URL = "mongodb://127.0.0.1:27017/staylocator";
-
-main()
-  .then(() => {
-    console.log("connection successful With database!!");
-  })
-  .catch((err) => console.log(err));
-
-async function main() {
-  await mongoose.connect(MONGO_URL);
-}
-//----------------------------------------------------------------
 
 //------------ RANDOM PAGES ---------------------------------
 app.all(/.*/, (req, res, next) => {
