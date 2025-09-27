@@ -28,8 +28,8 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
 //-------------- CONNECTING DATABASE (MONGOOSE) ------------------
-// const MONGO_URL = "mongodb://127.0.0.1:27017/staylocator";
-const dbUrl = process.env.ATLASDB_URL;
+const MONGO_URL = "mongodb://127.0.0.1:27017/staylocator";
+// const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => {
@@ -38,12 +38,12 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(dbUrl);
+  await mongoose.connect(MONGO_URL);
 }
 //----------------------------------------------------------------
 
 const store = MongoStore.create({
-  mongoUrl: dbUrl,
+  mongoUrl: MONGO_URL,
   crypto: {
     secret: process.env.SECRET,
   },
